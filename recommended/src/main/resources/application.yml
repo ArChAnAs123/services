@@ -1,0 +1,12 @@
+server:
+  port: 8090
+  servlet:
+    context-path: /recommended
+spring:
+  data:
+    mongodb:
+      host: localhost
+      port: 27017
+      database: bookApp
+  application:
+    name: recommended-service
