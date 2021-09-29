@@ -19,7 +19,7 @@ import BookApp.recommended.model.Recommended;
 import BookApp.recommended.service.RecommendedService;
 
 
-@CrossOrigin(origins = "*", allowedHeaders = "*")
+@CrossOrigin(origins = "*")
 @RestController
 @RequestMapping("/api")
 

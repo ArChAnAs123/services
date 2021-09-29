@@ -29,7 +29,7 @@ import com.example.service.FavouriteService;
 
 
 
-@CrossOrigin(origins = "*", allowedHeaders = "*")
+@CrossOrigin(origins = "*")
 @RestController
 @RequestMapping("/api")
 
@@ -82,15 +82,28 @@ public class FavouriteController {
 	
 	
 	
-	 @PostMapping("/addfavourites")
-	  public ResponseEntity<Favourite> createTutorial(@RequestBody Favourite tutorial) {
-	    try {
-	    	Favourite _tutorial = repo.save(new Favourite(tutorial.getBookId(),tutorial.getUsername()));
-	      return new ResponseEntity<>(_tutorial, HttpStatus.CREATED);
-	    } catch (Exception e) {
-	      return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
-	    }
-	  }
+	@PostMapping("/bookApp/addToFavourites")
+	public ResponseEntity<?> saveBook(@RequestBody Favourite b) 
+	{
+		ResponseEntity<?> rs=null;
+		try
+		{
+			Favourite bk=fs.saveFavourite(b);
+			if(bk!=null)
+			{
+				rs=ResponseEntity.status(HttpStatus.CREATED).build();
+			}
+			else
+			{
+				rs=ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+			}
+		}
+		catch(Exception e)
+		{
+			rs=ResponseEntity.status(HttpStatus.CONFLICT).build();
+		}
+		return rs;
+	}
 
 	
 	 @DeleteMapping("/delete/{bookid}/{username}")
@@ -103,7 +116,22 @@ public class FavouriteController {
 	   }
 	 }
 	
+	 @DeleteMapping("/bookApp/deleteFromFavourite/{id}/{username}")
+	  public ResponseEntity<?> deleteCustomer(@PathVariable("id") String id, @PathVariable("username") String username) {
+	    
+	    ResponseEntity<?> rs=null;
+		
+			
+			fs.deleteFromFavourite(id,username);
+			
+			
+			rs=ResponseEntity.status(HttpStatus.OK).build();
+			
+		
 
+		return rs;
+	    
+	  }
 
 
 	

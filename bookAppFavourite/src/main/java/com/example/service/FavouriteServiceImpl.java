@@ -63,34 +63,7 @@ public class FavouriteServiceImpl implements FavouriteService {
 	
 	
 
-	public Favourite deleteFavourite(String bookid, String username) {
-		
-		Favourite fa = null;
-		fa = fr.findByusername(username);
 	
-		try {
-		
-			 String [] bookids = fa.getBookId();
-			for(int i=1; i< bookids.length; i++ ) {
-				
-				if(bookids[i]==bookid) {
-					bookids[i]=" ";
-				}
-				
-				
-			}fa.setBookId(bookids);
-					
-			
-		}
-		catch(Exception e)
-		{
-			logger.error("Error while deleting from favourites");
-		}
-		
-		return fa;
-		
-	}
-
 
 	@Override
 	public List<Favourite> getFavouriteBooksByIdAndUsername(String id, String username) {
